@@ -49,14 +49,17 @@ namespace Task01
             catch (ArgumentException)
             {
                 Console.WriteLine("ArgumentException");
+                return;
             }
             catch (FormatException)
             {
                 Console.WriteLine("FormatException");
+                return;
             }
             catch (OverflowException)
             {
                 Console.WriteLine("OverflowException");
+                return;
             }
             
             // Синтаксис запросов
@@ -70,9 +73,9 @@ namespace Task01
                 PrintEnumerableCollection<int>(arrQuery, ":");
                 PrintEnumerableCollection<int>(arrMethod, "*");
             }
-            catch (ArgumentException)
+            catch (ArgumentNullException)
             {
-                Console.WriteLine("ArgumentException");
+                Console.WriteLine("ArgumentNullException");
             }
         }
 
