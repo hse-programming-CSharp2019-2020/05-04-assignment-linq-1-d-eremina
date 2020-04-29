@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Collections;
 
 /* В задаче не использовать циклы for, while. Все действия по обработке данных выполнять с использованием LINQ
  * 
@@ -41,32 +40,45 @@ namespace Task01
 
         public static void RunTesk01()
         {
-            int[] arr;
+            int[] arr = new int[0];
             try
             {
-                // Попробуйте осуществить считывание целочисленного массива, записав это ОДНИМ ВЫРАЖЕНИЕМ.
-                arr = 
+                arr = (from e in Console.ReadLine().Split(new[] {' '}, StringSplitOptions.RemoveEmptyEntries)
+                    select int.Parse(e)).ToArray();
+            }
+            catch (ArgumentException)
+            {
+                Console.WriteLine("ArgumentException");
+            }
+            catch (FormatException)
+            {
+                Console.WriteLine("FormatException");
+            }
+            catch (OverflowException)
+            {
+                Console.WriteLine("OverflowException");
             }
             
-            // использовать синтаксис запросов!
-            IEnumerable<int> arrQuery = from 
-
-            // использовать синтаксис методов!
-            IEnumerable<int> arrMethod = arr.
+            // Синтаксис запросов
+            IEnumerable<int> arrQuery = from t in arr where t < 0 || t % 2 == 0 select t;
+            
+            // Синтаксис методов
+            IEnumerable<int> arrMethod = arr.Where(t => t < 0 || t % 2 == 0);
 
             try
             {
                 PrintEnumerableCollection<int>(arrQuery, ":");
                 PrintEnumerableCollection<int>(arrMethod, "*");
             }
+            catch (ArgumentException)
+            {
+                Console.WriteLine("ArgumentException");
+            }
         }
 
         // Попробуйте осуществить вывод элементов коллекции с учетом разделителя, записав это ОДНИМ ВЫРАЖЕНИЕМ.
         // P.S. Есть два способа, оставьте тот, в котором применяется LINQ...
-        public static void PrintEnumerableCollection<T>(IEnumerable<T> collection, string separator)
-        {
-           
-           
-        }
+        public static void PrintEnumerableCollection<T>(IEnumerable<T> collection, string separator) =>
+            Console.WriteLine(collection.Select(x => x.ToString()).Aggregate((x, y) => x + separator + y));
     }
 }
