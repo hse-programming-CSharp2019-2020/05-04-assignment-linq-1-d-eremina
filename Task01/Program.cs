@@ -77,6 +77,10 @@ namespace Task01
             {
                 Console.WriteLine("ArgumentNullException");
             }
+            catch (InvalidOperationException)
+            {
+                Console.WriteLine("InvalidOperationException");
+            }
         }
 
         // Попробуйте осуществить вывод элементов коллекции с учетом разделителя, записав это ОДНИМ ВЫРАЖЕНИЕМ.
