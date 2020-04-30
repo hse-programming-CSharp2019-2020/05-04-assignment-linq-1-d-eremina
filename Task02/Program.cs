@@ -64,16 +64,19 @@ namespace Task02
             
             try
             {
-                var filteredCollection = arr.TakeWhile(e => e != 0).Select(e => e * e).ToArray();
+                checked
+                {
+                    var filteredCollection = arr.TakeWhile(e => e != 0).Select(e => e * e).ToArray();
                 
-                // Статическая форма вызова метода подсчета среднего
-                double averageUsingStaticForm = filteredCollection.Average();
-                Console.WriteLine($"{averageUsingStaticForm.ToString("F3").Replace('.', ',')}");
+                    // Статическая форма вызова метода подсчета среднего
+                    double averageUsingStaticForm = filteredCollection.Average();
+                    Console.WriteLine($"{averageUsingStaticForm.ToString("F3").Replace('.', ',')}");
 
-                // Объектна форма вызова метода подсчета среднего
-                double averageUsingInstanceForm = Enumerable.Average(filteredCollection);
-                Console.WriteLine(averageUsingInstanceForm.ToString("F3").Replace('.', ','));
-
+                    // Объектна форма вызова метода подсчета среднего
+                    double averageUsingInstanceForm = Enumerable.Average(filteredCollection);
+                    Console.WriteLine(averageUsingInstanceForm.ToString("F3").Replace('.', ','));
+                }
+                
                 // Вывести элементы коллекции в одну строку
                 Console.WriteLine(arr.TakeWhile(e => e != 0).Select(x => x.ToString())
                     .Aggregate((x, y) => x + " " + y));
