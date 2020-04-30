@@ -68,22 +68,25 @@ namespace Task02
             {
                 // Статическая форма вызова метода подсчета среднего
                 double averageUsingStaticForm = filteredCollection.Average();
-                Console.WriteLine(averageUsingStaticForm);
+                Console.WriteLine(averageUsingStaticForm.ToString().Replace('.', ','));
 
                 // Объектна форма вызова метода подсчета среднего
                 double averageUsingInstanceForm = Enumerable.Average(filteredCollection);
-                Console.WriteLine(averageUsingInstanceForm);
+                Console.WriteLine(averageUsingInstanceForm.ToString().Replace('.', ','));
 
                 // Вывести элементы коллекции в одну строку
-                Console.WriteLine(filteredCollection.Select(x => Math.Sqrt(x)).
-                    Select(x => x.ToString()).
-                    Aggregate((x, y) => x + " " + y));
+                Console.WriteLine(filteredCollection.Select(x => Math.Sqrt(x)).Select(x => x.ToString())
+                    .Aggregate((x, y) => x + " " + y));
             }
             catch (ArgumentNullException)
             {
                 Console.WriteLine("ArgumentNullException");
             }
             catch (InvalidOperationException)
+            {
+                Console.WriteLine("InvalidOperationException");
+            }
+            catch (OverflowException)
             {
                 Console.WriteLine("InvalidOperationException");
             }
