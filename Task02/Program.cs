@@ -61,11 +61,11 @@ namespace Task02
                 Console.WriteLine("OverflowException");
                 return;
             }
-
-            var filteredCollection = arr.TakeWhile(e => e != 0).Select(e => e * e).ToArray();
-
+            
             try
             {
+                var filteredCollection = arr.TakeWhile(e => e != 0).Select(e => e * e).ToArray();
+                
                 // Статическая форма вызова метода подсчета среднего
                 double averageUsingStaticForm = filteredCollection.Average();
                 Console.WriteLine($"{averageUsingStaticForm.ToString("F3").Replace('.', ',')}");
@@ -75,7 +75,7 @@ namespace Task02
                 Console.WriteLine(averageUsingInstanceForm.ToString("F3").Replace('.', ','));
 
                 // Вывести элементы коллекции в одну строку
-                Console.WriteLine(filteredCollection.Select(x => Math.Sqrt(x)).Select(x => x.ToString())
+                Console.WriteLine(arr.TakeWhile(e => e != 0).Select(x => x.ToString())
                     .Aggregate((x, y) => x + " " + y));
             }
             catch (ArgumentNullException)
