@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Runtime.InteropServices;
 
 /* В задаче не использовать циклы for, while. Все действия по обработке данных выполнять с использованием LINQ
  * 
@@ -42,26 +43,50 @@ namespace Task02
             try
             {
                 // Попробуйте осуществить считывание целочисленного массива, записав это ОДНИМ ВЫРАЖЕНИЕМ.
-                arr = 
+                arr = Console.ReadLine().Split(new[] {' '}, StringSplitOptions.RemoveEmptyEntries)
+                    .Select(e => int.Parse(e)).ToArray();
             }
-            
-            
-            var filteredCollection = arr.
-           
+            catch (ArgumentException)
+            {
+                Console.WriteLine("ArgumentException");
+                return;
+            }
+            catch (FormatException)
+            {
+                Console.WriteLine("FormatException");
+                return;
+            }
+            catch (OverflowException)
+            {
+                Console.WriteLine("OverflowException");
+                return;
+            }
+
+            var filteredCollection = arr.TakeWhile(e => e != 0).Select(e => e * e).ToArray();
+
             try
             {
-                
-                // использовать статическую форму вызова метода подсчета среднего
-                double averageUsingStaticForm = 
-                // использовать объектную форму вызова метода подсчета среднего
-                double averageUsingInstanceForm = 
+                // Статическая форма вызова метода подсчета среднего
+                double averageUsingStaticForm = filteredCollection.Average();
+                Console.WriteLine(averageUsingStaticForm);
 
+                // Объектна форма вызова метода подсчета среднего
+                double averageUsingInstanceForm = Enumerable.Average(filteredCollection);
+                Console.WriteLine(averageUsingInstanceForm);
 
-                // вывести элементы коллекции в одну строку
-                filteredCollection.
+                // Вывести элементы коллекции в одну строку
+                Console.WriteLine(filteredCollection.Select(x => Math.Sqrt(x)).
+                    Select(x => x.ToString()).
+                    Aggregate((x, y) => x + " " + y));
             }
-          
+            catch (ArgumentNullException)
+            {
+                Console.WriteLine("ArgumentNullException");
+            }
+            catch (InvalidOperationException)
+            {
+                Console.WriteLine("InvalidOperationException");
+            }
         }
-        
     }
 }
