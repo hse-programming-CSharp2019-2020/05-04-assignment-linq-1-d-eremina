@@ -1,5 +1,5 @@
 ﻿using System;
-
+using System.Linq;
 /*
  * На вход подается строка, состоящая из целых чисел типа int, разделенных одним или несколькими пробелами.
  * На основе полученных чисел получить новое по формуле: 5 + a[0] - a[1] + a[2] - a[3] + ...
@@ -43,12 +43,29 @@ namespace Task04
             try
             {
                 // Попробуйте осуществить считывание целочисленного массива, записав это ОДНИМ ВЫРАЖЕНИЕМ.
-                arr = 
+                arr = Console.ReadLine().Split(new[] {' '}, StringSplitOptions.RemoveEmptyEntries)
+                    .Select(e => int.Parse(e)).ToArray();
             }
-           
+            catch (FormatException)
+            {
+                Console.WriteLine("FormatException");
+                return;
+            }
+            catch (OverflowException)
+            {
+                Console.WriteLine("OverflowException");
+                return;
+            }
+            catch (ArgumentException)
+            {
+                Console.WriteLine("ArgumentException");
+                return;
+            }
                 // использовать синтаксис методов! SQL-подобные запросы не писать!
-               
-                int arrAggregate = arr.
+
+                int arrAggregate = 5 + arr.Select((x, i) => (int)
+                        (x * Math.Pow(-1, i)))
+                    .Aggregate((x, y) => x + y);
 
                 int arrMyAggregate = MyClass.MyAggregate(arr);
 
@@ -60,9 +77,12 @@ namespace Task04
 
     static class MyClass
     {
-        public static int MyAggregate()
+        public static int MyAggregate(int[] arr)
         {
-            
+            int result = 5;
+            for (int i = 0; i < arr.Length; ++i)
+                result += (int)Math.Pow(-1, i) * arr[i];
+            return result;
         }
     }
 }
